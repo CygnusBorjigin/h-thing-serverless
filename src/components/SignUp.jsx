@@ -1,7 +1,10 @@
 import {useEffect, useState} from "react";
 
+// TODO:
 const SignUp = (props) => {
     const inputStyle = "w-2/3 h-10 border-2 rounded-md mt-8 ml-auto mr-auto bg-transparent text-center text-l text-white placeholder:text-white placeholder:font-quicksand focus:outline-gray-300";
+    const inputStyleMatch = "w-2/3 h-10 border-4 rounded-md mt-8 ml-auto mr-auto bg-transparent text-center text-l text-white placeholder:text-white placeholder:font-quicksand outline-green-300 focus:outline-green-700";
+    const inputStyleNotMatch = "w-2/3 h-10 border-4 rounded-md mt-8 ml-auto mr-auto bg-transparent text-center text-l text-white placeholder:text-white placeholder:font-quicksand outline-red-300 focus:outline-red-700";
     const buttonStyle = "border-2 rounded-md border-white w-1/6 ml-auto mr-auto mt-8 text-amber-50 py-2 hover:bg-amber-50 hover:text-gray-600 font-silkscreen";
     const backgroundStyle = "h-screen w-screen bg-gray-600 flex justify-center";
     const formStyle = "h-1/2 w-1/2 border-2 rounded-md mt-60 flex flex-col";
@@ -28,8 +31,8 @@ const SignUp = (props) => {
     const checkPasswordMatch = () => userPassword1 === userPassword2;
 
     useEffect(() => {
-
-    }, [userPassword2])
+        setPasswordMatch(checkPasswordMatch);
+    }, [userPassword2]);
 
     const handelSignUp = () => {
 
@@ -56,7 +59,7 @@ const SignUp = (props) => {
                 ></input>
                 <input
                     id={"passwordInput2"}
-                    className={inputStyle}
+                    className={userPassword1 === "" ? inputStyle : (passwordMatch ? inputStyleMatch : inputStyleNotMatch)}
                     placeholder={"Please Re-enter your password"}
                     onChange={handelChange}
                     type={"password"}
