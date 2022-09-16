@@ -18,10 +18,26 @@ const SignIn = (props) => {
     };
 
     const handelSignIn = async () => {
-        const res = await axios.get("https://5prp426hia.execute-api.us-east-1.amazonaws.com/prod/provided-code-access-s3/some");
-        console.log(res);
-        setUserEmail("");
-        setUserPassword("");
+        const reqData = {
+            "userEmail": userEmail,
+            "userPassword": userPassword
+        };
+
+        const config = {
+            method: 'post',
+            url: 'https://pbz9me5ymi.execute-api.us-east-1.amazonaws.com/testing/login',
+            headers: {
+                'Content-Type': 'text/plain'
+            },
+            data : reqData
+        };
+
+        try {
+            const res = await axios(config);
+            console.log(res);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const handelSignUp = () => {
