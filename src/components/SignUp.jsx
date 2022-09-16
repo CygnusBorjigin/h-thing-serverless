@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
 
-// TODO:
 const SignUp = (props) => {
     const inputStyle = "w-2/3 h-10 border-2 rounded-md mt-8 ml-auto mr-auto bg-transparent text-center text-l text-white placeholder:text-white placeholder:font-quicksand focus:outline-gray-300";
     const inputStyleMatch = "w-2/3 h-10 border-4 rounded-md mt-8 ml-auto mr-auto bg-transparent text-center text-l text-white placeholder:text-white placeholder:font-quicksand outline-green-300 focus:outline-green-700";

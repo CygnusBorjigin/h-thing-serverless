@@ -1,4 +1,5 @@
 import {useState} from "react";
+import axios from 'axios';
 
 const SignIn = (props) => {
     const inputStyle = "w-2/3 h-10 border-2 rounded-md mt-8 ml-auto mr-auto bg-transparent text-center text-l text-white placeholder:text-white placeholder:font-quicksand focus:outline-gray-300";
@@ -16,9 +17,9 @@ const SignIn = (props) => {
         if (event.target.id === "passwordInput") setUserPassword(event.target.value);
     };
 
-    const handelSignIn = () => {
-        console.log(userEmail);
-        console.log(userPassword);
+    const handelSignIn = async () => {
+        const res = await axios.get("https://5prp426hia.execute-api.us-east-1.amazonaws.com/prod/provided-code-access-s3/some");
+        console.log(res);
         setUserEmail("");
         setUserPassword("");
     };
