@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import UserPool from "./UserPool.js";
 
 const SignUp = (props) => {
     const inputStyle = "w-2/3 h-10 border-2 rounded-md mt-8 ml-auto mr-auto bg-transparent text-center text-l text-white placeholder:text-white placeholder:font-quicksand focus:outline-gray-300";
@@ -34,7 +35,13 @@ const SignUp = (props) => {
     }, [userPassword2]);
 
     const handelSignUp = () => {
-
+        UserPool.signUp(userEmail, userPassword1, [], null, (err, data) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(data);
+            }
+        });
     };
 
     return(
