@@ -31,7 +31,10 @@ const SignIn = (props) => {
 
         user.authenticateUser(authDetails, {
             onSuccess: (data) => {
-                console.log("onSuccess: ", data);
+                console.log(data);
+                const userToken = data.getAccessToken().getJwtToken();
+                const tokenKey = data.getAccessToken().
+                localStorage.setItem("hThingToken", userToken);
             },
             onFailure: (err) => {
                 console.error("onFailure: ", err);
