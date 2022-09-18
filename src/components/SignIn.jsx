@@ -1,5 +1,6 @@
+import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import {useState} from "react";
-import axios from 'axios';
+import UserPool from "./UserPool";
 
 const SignIn = (props) => {
     const inputStyle = "w-2/3 h-10 border-2 rounded-md mt-8 ml-auto mr-auto bg-transparent text-center text-l text-white placeholder:text-white placeholder:font-quicksand focus:outline-gray-300";
@@ -18,26 +19,27 @@ const SignIn = (props) => {
     };
 
     const handelSignIn = async () => {
-        const reqData = {
-            "userEmail": userEmail,
-            "userPassword": userPassword
-        };
+        const user = new CognitoUser({
+            Username: userEmail,
+            Pool: UserPool
+        });
 
-        const config = {
-            method: 'post',
-            url: 'https://pbz9me5ymi.execute-api.us-east-1.amazonaws.com/testing/login',
-            headers: {
-                'Content-Type': 'text/plain'
+        const authDetails = new AuthenticationDetails( {
+            Username: userEmail,
+            Password: userPassword
+        });
+
+        user.authenticateUser(authDetails, {
+            onSuccess: (data) => {
+                console.log("onSuccess: ", data);
             },
-            data : reqData
-        };
-
-        try {
-            const res = await axios(config);
-            console.log(res);
-        } catch (error) {
-            console.log(error);
-        }
+            onFailure: (err) => {
+                console.error("onFailure: ", err);
+            },
+            newPasswordRequired: (data) => {
+                console.log("newPasswordRequired: ", data);
+            }
+        })
     };
 
     const handelSignUp = () => {

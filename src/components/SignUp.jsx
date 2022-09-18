@@ -70,20 +70,21 @@ const SignUp = (props) => {
                     onChange={handelChange}
                     type={"password"}
                 ></input>
-                <button
-                    className={buttonStyle}
-                    onClick={handelSignIn}
-                >
-                    Sign In
-                </button>
-
-                <hr className={lineStyle}/>
 
                 <button
                     className={buttonStyle}
                     onClick={handelSignUp}
                 >
                     Sign Up
+                </button>
+
+                <hr className={lineStyle}/>
+
+                <button
+                    className={buttonStyle}
+                    onClick={handelSignIn}
+                >
+                    Sign In
                 </button>
             </div>
         </div>
