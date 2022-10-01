@@ -33,7 +33,7 @@ const SignIn = (props) => {
             onSuccess: (data) => {
                 console.log(data);
                 const userToken = data.getAccessToken().getJwtToken();
-                const tokenKey = data.getAccessToken().
+                const tokenKey = data.getAccessToken();
                 localStorage.setItem("hThingToken", userToken);
             },
             onFailure: (err) => {
