@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import UserPool from "./UserPool.js";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const SignUp = (props) => {
     const inputStyle = "w-2/3 h-10 border-2 rounded-md mt-8 ml-auto mr-auto bg-transparent text-center text-l text-white placeholder:text-white placeholder:font-quicksand focus:outline-gray-300";
@@ -16,6 +16,8 @@ const SignUp = (props) => {
     const [userPassword1, setUserPassword1] = useState("");
     const [userPassword2, setUserPassword2] = useState("");
     const [passwordMatch, setPasswordMatch] = useState(true);
+
+    const navigate = useNavigate();
 
     const handelChange = (event) => {
         if (event.target.id === "emailInput") setUserEmail(event.target.value);
@@ -35,7 +37,12 @@ const SignUp = (props) => {
             if (err) {
                 console.log(err);
             } else {
-                console.log(data);
+                const userToken = data.getAccessToken().getJwtToken();
+                const tokenKey = data.getAccessToken();
+                localStorage.setItem("hThingToken", userToken);
+
+                // navigate to the dashboard
+                navigate('/dashboard');
             }
         });
     };

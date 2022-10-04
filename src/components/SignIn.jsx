@@ -1,7 +1,9 @@
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import UserPool from "./UserPool";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import ErrorSection from "./ErrorSection";
+import {type} from "@testing-library/user-event/dist/type";
 
 const SignIn = (props) => {
     const inputStyle = "w-2/3 h-10 border-2 rounded-md mt-8 ml-auto mr-auto bg-transparent text-center text-l text-white placeholder:text-white placeholder:font-quicksand focus:outline-gray-300";
@@ -13,6 +15,9 @@ const SignIn = (props) => {
 
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
+    const [errors, setErrors] = useState([]);
+
+    const navigate = useNavigate();
 
     const handelChange = (event) => {
         if (event.target.id === "emailInput") setUserEmail(event.target.value);
@@ -32,13 +37,16 @@ const SignIn = (props) => {
 
         user.authenticateUser(authDetails, {
             onSuccess: (data) => {
-                console.log(data);
                 const userToken = data.getAccessToken().getJwtToken();
                 const tokenKey = data.getAccessToken();
                 localStorage.setItem("hThingToken", userToken);
+
+                // navigate to the dashboard
+                navigate('/dashboard');
+
             },
             onFailure: (err) => {
-                console.error("onFailure: ", err);
+                setErrors(["Incorrect username or password"])
             },
             newPasswordRequired: (data) => {
                 console.log("newPasswordRequired: ", data);
@@ -72,7 +80,7 @@ const SignIn = (props) => {
                     Sign In
                 </button>
 
-                <hr className={lineStyle}/>
+                <hr className={lineStyle} />
 
                 <button
                     className={buttonStyle}
@@ -80,6 +88,7 @@ const SignIn = (props) => {
                     <Link to={"/register"}>Sign Up</Link>
                 </button>
 
+                {errors.length === 0 ? null : <ErrorSection errorList={errors} />}
             </div>
         </div>
     )
