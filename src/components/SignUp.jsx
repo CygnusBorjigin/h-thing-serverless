@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import UserPool from "./UserPool.js";
+import {Link} from "react-router-dom";
 
 const SignUp = (props) => {
     const inputStyle = "w-2/3 h-10 border-2 rounded-md mt-8 ml-auto mr-auto bg-transparent text-center text-l text-white placeholder:text-white placeholder:font-quicksand focus:outline-gray-300";
@@ -22,11 +23,6 @@ const SignUp = (props) => {
         if (event.target.id === "passwordInput2") setUserPassword2(event.target.value);
     };
 
-    const handelSignIn = () => {
-        props.switchScreen((prev) => {
-            return(!prev);
-        });
-    };
 
     const checkPasswordMatch = () => userPassword1 === userPassword2;
 
@@ -82,9 +78,8 @@ const SignUp = (props) => {
 
                 <button
                     className={buttonStyle}
-                    onClick={handelSignIn}
                 >
-                    Sign In
+                    <Link to={"/"}>Sign In</Link>
                 </button>
             </div>
         </div>

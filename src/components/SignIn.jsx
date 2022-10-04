@@ -1,6 +1,7 @@
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import {useState} from "react";
 import UserPool from "./UserPool";
+import {Link} from "react-router-dom";
 
 const SignIn = (props) => {
     const inputStyle = "w-2/3 h-10 border-2 rounded-md mt-8 ml-auto mr-auto bg-transparent text-center text-l text-white placeholder:text-white placeholder:font-quicksand focus:outline-gray-300";
@@ -45,12 +46,6 @@ const SignIn = (props) => {
         })
     };
 
-    const handelSignUp = () => {
-        props.switchScreen((prev) => {
-            return(!prev);
-        });
-    };
-
     return(
         <div className={backgroundStyle}>
             <div className={formStyle}>
@@ -81,9 +76,8 @@ const SignIn = (props) => {
 
                 <button
                     className={buttonStyle}
-                    onClick={handelSignUp}
                 >
-                    Sign Up
+                    <Link to={"/register"}>Sign Up</Link>
                 </button>
 
             </div>
