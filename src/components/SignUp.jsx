@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import UserPool from "./UserPool.js";
 import {Link, useNavigate} from "react-router-dom";
+import {AuthenticationDetails, CognitoUser} from "amazon-cognito-identity-js";
 
 const SignUp = (props) => {
     const inputStyle = "w-2/3 h-10 border-2 rounded-md mt-8 ml-auto mr-auto bg-transparent text-center text-l text-white placeholder:text-white placeholder:font-quicksand focus:outline-gray-300";
@@ -16,6 +17,7 @@ const SignUp = (props) => {
     const [userPassword1, setUserPassword1] = useState("");
     const [userPassword2, setUserPassword2] = useState("");
     const [passwordMatch, setPasswordMatch] = useState(true);
+    const [errors, setErrors] = useState([]);
 
     const navigate = useNavigate();
 
@@ -33,18 +35,19 @@ const SignUp = (props) => {
     }, [userPassword2]);
 
     const handelSignUp = () => {
-        UserPool.signUp(userEmail, userPassword1, [], null, (err, data) => {
-            if (err) {
-                console.log(err);
-            } else {
-                const userToken = data.getAccessToken().getJwtToken();
-                const tokenKey = data.getAccessToken();
-                localStorage.setItem("hThingToken", userToken);
-
-                // navigate to the dashboard
-                navigate('/dashboard');
-            }
-        });
+        if (!passwordMatch) {
+            setErrors(prev => {
+                return prev.push("password does not match");
+            })
+        } else {
+            UserPool.signUp(userEmail, userPassword1, [], null, (err, data) => {
+                if (err) {
+                    setErrors(["internal signup server error"]);
+                } else {
+                    navigate('/signedupmessage');
+                }
+            });
+        }
     };
 
     return(
