@@ -1,9 +1,10 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
 import { v4 as uuidv4 } from 'uuid';
+import AddItem from "./AddItem";
+import EachItem from "./EachItem";
 
 const DashHome = () => {
-    const sampleData = ["the first thing", "the second thing", "The third thing"];
     const [listItem, setListitem] = useState([]);
 
     const fetchTodoList = () => {
@@ -23,7 +24,7 @@ const DashHome = () => {
 
         axios(config)
             .then(function (response) {
-                console.log(JSON.stringify(response.data));
+                setListitem(response.data.content)
             })
             .catch(function (error) {
                 console.log(error);
@@ -43,16 +44,10 @@ const DashHome = () => {
             <hr className={"mt-2"}></hr>
             <div className={"flex justify-center list-none font-quicksand mt-8"}>
                 <ul>
-                    {sampleData.map(eachEntry => {
-                        return(
-                            <li
-                                className={"my-2"}
-                                key={uuidv4()}
-                            >
-                                {eachEntry}
-                            </li>
-                        )
+                    {listItem.map(eachEntry => {
+                        <EachItem message={eachEntry.message}></EachItem>
                     })}
+                    <AddItem></AddItem>
                 </ul>
             </div>
         </div>
