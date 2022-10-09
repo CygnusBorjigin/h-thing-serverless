@@ -1,4 +1,5 @@
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 const SignUpMessage = () => {
     const backgroundStyle = "h-screen w-screen bg-gray-600 flex justify-center";

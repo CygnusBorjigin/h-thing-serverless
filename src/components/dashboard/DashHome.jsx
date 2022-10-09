@@ -1,4 +1,3 @@
-import {list} from "postcss";
 
 const DashHome = () => {
     const sampleData = ["the first thing", "the second thing", "The third thing"];

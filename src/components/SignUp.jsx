@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import UserPool from "./UserPool.js";
 import {Link, useNavigate} from "react-router-dom";
-import {AuthenticationDetails, CognitoUser} from "amazon-cognito-identity-js";
+import axios from "axios";
 
 const SignUp = (props) => {
     const inputStyle = "w-2/3 h-10 border-2 rounded-md mt-8 ml-auto mr-auto bg-transparent text-center text-l text-white placeholder:text-white placeholder:font-quicksand focus:outline-gray-300";
@@ -34,6 +34,28 @@ const SignUp = (props) => {
         setPasswordMatch(checkPasswordMatch);
     }, [userPassword2]);
 
+    const createTotoList = async (cogintoUserName) => {
+        const data = JSON.stringify({
+            "userSub": cogintoUserName
+        });
+        const config = {
+            method: "post",
+            url: "https://l3bzsklp86.execute-api.us-east-1.amazonaws.com/test/registeruser",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: data
+        };
+
+        axios(config).then(function (response) {
+            console.log("list created");
+        }).catch(function (error) {
+            console.log(error);
+        });
+
+        navigate('/signedupmessage');
+    };
+
     const handelSignUp = () => {
         if (!passwordMatch) {
             setErrors(prev => {
@@ -44,7 +66,7 @@ const SignUp = (props) => {
                 if (err) {
                     setErrors(["internal signup server error"]);
                 } else {
-                    navigate('/signedupmessage');
+                    createTotoList(data.userSub);
                 }
             });
         }
