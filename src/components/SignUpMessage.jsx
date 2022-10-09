@@ -12,7 +12,6 @@ const SignUpMessage = () => {
     const handelSignin = () => {
         navigate('/');
     }
-
     return(
         <div className={backgroundStyle}>
             <div className={formStyle}>
