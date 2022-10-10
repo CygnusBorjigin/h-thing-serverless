@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import AddItem from "./AddItem";
 import EachItem from "./EachItem";
 import addItem from "./AddItem";
+import eachItem from "./EachItem";
 
 const DashHome = () => {
     const [listItem, setListitem] = useState([]);
@@ -40,7 +41,11 @@ const DashHome = () => {
 
    const addItemToList = (newItem) => {
         setListitem([...listItem, newItem]);
-   }
+   };
+
+   const removeFromList = (toBeRemoved) => {
+       setListitem(listItem.filter(eachItem => eachItem.id !== toBeRemoved))
+   };
 
     return(
         <div>
@@ -51,7 +56,7 @@ const DashHome = () => {
             <div className={"flex justify-center list-none font-quicksand mt-8"}>
                 <ul>
                     {listItem.map(eachEntry => {
-                        return <EachItem key={uuidv4()} message={eachEntry}></EachItem>
+                        return <EachItem key={uuidv4()} message={eachEntry} removeFunction={removeFromList}></EachItem>
                     })}
                     <AddItem addFunction={addItemToList}></AddItem>
                 </ul>
