@@ -26,6 +26,7 @@ const DashHome = () => {
         axios(config)
             .then(function (response) {
                 setListitem(response.data.content);
+                console.log(response.data.content);
             })
             .catch(function (error) {
                 console.log(error);

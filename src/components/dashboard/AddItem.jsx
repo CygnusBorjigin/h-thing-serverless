@@ -2,14 +2,16 @@ import axios from "axios";
 import {useState} from "react";
 import {v4 as uuidv4} from "uuid";
 
-const pushChange = () => {
+const pushChange = (newItem) => {
     const data = JSON.stringify({
-        "userToken": localStorage.getItem("hThingToken")
+        "userToken": localStorage.getItem("hThingToken"),
+        "action": "add",
+        "modifyItem": newItem
     });
 
     const config = {
         method: 'post',
-        url: 'https://l3bzsklp86.execute-api.us-east-1.amazonaws.com/test/fetchlist',
+        url: 'https://l3bzsklp86.execute-api.us-east-1.amazonaws.com/test/modifylist',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -18,7 +20,7 @@ const pushChange = () => {
 
     axios(config)
         .then(function (response) {
-            console.log("item added");
+            console.log(response);
         })
         .catch(function (error) {
             console.log(error);
@@ -40,7 +42,8 @@ const AddItem = (props) => {
         };
 
         props.addFunction(itemToAdd);
-
+        pushChange(itemToAdd);
+        setNewItem("");
     };
 
     return (
