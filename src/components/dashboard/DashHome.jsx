@@ -37,8 +37,8 @@ const DashHome = () => {
         fetchTodoList();
     }, []);
 
-   const addItemToList = () => {
-
+   const addItemToList = (newItem) => {
+        setListitem([...listItem, newItem]);
    }
 
     return(
@@ -52,7 +52,7 @@ const DashHome = () => {
                     {listItem.map(eachEntry => {
                         return <EachItem key={uuidv4()} message={eachEntry}></EachItem>
                     })}
-                    <AddItem addFunction={addItemToList()}></AddItem>
+                    <AddItem addFunction={addItemToList}></AddItem>
                 </ul>
             </div>
         </div>
